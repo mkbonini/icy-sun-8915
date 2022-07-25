@@ -99,7 +99,7 @@ RSpec.describe 'employee show page' do
         end
 
         within "#ticket-form" do
-            fill_in('id', with: "#{ticket_mid.id}")
+            fill_in('ticket_id', with: "#{ticket_mid.id}")
             click_on('Add Ticket')
         end
 

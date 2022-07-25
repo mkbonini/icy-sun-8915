@@ -20,3 +20,12 @@
         <% end %>
     </div>
   <% end %>
+
+<div id="ticket-form">
+    <%= form_with url: "/employees/#{@employee.id}", method: :post, local: true do |f| %>
+        <%= f.label :ticket_id %>
+        <%= f.text_field :ticket_id %>
+
+        <%= f.submit "Add Ticket" %>
+    <% end %>
+</div>
