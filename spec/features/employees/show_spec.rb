@@ -26,6 +26,10 @@ RSpec.describe 'employee show page' do
         ticket_new = Ticket.create!(subject: "printer broken", age: 1)
         ticket_mid = Ticket.create!(subject: "fridge smell", age: 3)
 
+        EmployeeTicket.create!(employee: emp, ticket: ticket_old)
+        EmployeeTicket.create!(employee: emp, ticket: ticket_new)
+        EmployeeTicket.create!(employee: emp, ticket: ticket_mid)
+
         visit "/employees/#{emp.id}"
 
         within "#ticket-list" do
@@ -41,6 +45,10 @@ RSpec.describe 'employee show page' do
         ticket_old = Ticket.create!(subject: "bad chair", age: 5)
         ticket_new = Ticket.create!(subject: "printer broken", age: 1)
         ticket_mid = Ticket.create!(subject: "fridge smell", age: 3)
+
+        EmployeeTicket.create!(employee: emp, ticket: ticket_old)
+        EmployeeTicket.create!(employee: emp, ticket: ticket_new)
+        EmployeeTicket.create!(employee: emp, ticket: ticket_mid)
 
         visit "/employees/#{emp.id}"
 
