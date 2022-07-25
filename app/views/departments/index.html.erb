@@ -1,0 +1,13 @@
+<h1>Department List</h1>
+
+<% @departments.each do |dept| %>
+    <div id="dept-<%= dept.id %>">
+        <h2><%= dept.name %></h2>
+        <p><%= dept.floor %></p>
+        
+        <h3>Employees:</h3>
+        <% dept.employees.each do |employee| %>
+            <p><%= employee.name %></p>
+        <% end %>
+    </div>
+<% end %>
