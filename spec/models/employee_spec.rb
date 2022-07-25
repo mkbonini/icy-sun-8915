@@ -41,7 +41,7 @@ RSpec.describe Employee, type: :model do
       EmployeeTicket.create!(employee: emp, ticket: ticket_new)
       EmployeeTicket.create!(employee: emp, ticket: ticket_mid)
 
-      expect(emp.tickets_by_age).to eq[(ticket_old, ticket_mid, ticket_new])
+      expect(emp.tickets_by_age).to eq([ticket_old, ticket_mid, ticket_new])
     end
   end
 end

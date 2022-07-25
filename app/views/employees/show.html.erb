@@ -1,0 +1,22 @@
+<h1>Employee Show page</h1>
+
+<div id="employee-info" >
+    <h2><%= @employee.name %></h2>
+    <h3><%= @employee.department.name %></h3>
+</div>
+
+<% if @employee.tickets.length > 0 %>
+    <div id="oldest-ticket" >
+        <h2>Oldest Ticket</h2> 
+        <p>Subject: <%= @employee.oldest_ticket.subject %></p>
+        <p>age: <%= @employee.oldest_ticket.age %></p>
+    </div>
+
+    <div id="ticket-list">
+        <h2>All Tickets</h2>
+        <% @employee.tickets_by_age.each do |ticket| %>
+            <h2><%= ticket.subject %></h2>
+            <p><%= ticket.age %></p>  
+        <% end %>
+    </div>
+  <% end %>

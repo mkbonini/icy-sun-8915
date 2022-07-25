@@ -49,7 +49,7 @@ RSpec.describe 'employee show page' do
         EmployeeTicket.create!(employee: emp, ticket: ticket_old)
         EmployeeTicket.create!(employee: emp, ticket: ticket_new)
         EmployeeTicket.create!(employee: emp, ticket: ticket_mid)
-
+        
         visit "/employees/#{emp.id}"
 
         within "#oldest-ticket" do
