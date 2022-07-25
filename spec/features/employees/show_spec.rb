@@ -49,11 +49,66 @@ RSpec.describe 'employee show page' do
         EmployeeTicket.create!(employee: emp, ticket: ticket_old)
         EmployeeTicket.create!(employee: emp, ticket: ticket_new)
         EmployeeTicket.create!(employee: emp, ticket: ticket_mid)
-        
+
         visit "/employees/#{emp.id}"
 
         within "#oldest-ticket" do
             expect(page).to have_content("bad chair")
+        end
+    end
+
+    it 'has only the associated tickets on the page' do
+        dept = Department.create!(name: 'Accounting', floor: 'sub-basement')
+        emp = Employee.create!(name: 'Mark', level: 5, department_id: dept.id)
+        emp_2 = Employee.create!(name: 'John', level: 1, department_id: dept.id)
+
+        ticket_old = Ticket.create!(subject: "bad chair", age: 5)
+        ticket_new = Ticket.create!(subject: "printer broken", age: 1)
+        ticket_mid = Ticket.create!(subject: "fridge smell", age: 3)
+
+        EmployeeTicket.create!(employee: emp, ticket: ticket_old)
+        EmployeeTicket.create!(employee: emp, ticket: ticket_new)
+        EmployeeTicket.create!(employee: emp_2, ticket: ticket_mid)
+
+        visit "/employees/#{emp.id}"
+
+        within "#ticket-list" do
+            expect(page).to have_content("bad chair")
+            expect(page).to have_content("printer broken")
+            expect(page).to_not have_content("fridge smell")
+        end
+    end
+
+    it 'has a form to add tickets to employee' do
+        dept = Department.create!(name: 'Accounting', floor: 'sub-basement')
+        emp = Employee.create!(name: 'Mark', level: 5, department_id: dept.id)
+
+        ticket_old = Ticket.create!(subject: "bad chair", age: 5)
+        ticket_new = Ticket.create!(subject: "printer broken", age: 1)
+        ticket_mid = Ticket.create!(subject: "fridge smell", age: 3)
+
+        EmployeeTicket.create!(employee: emp, ticket: ticket_old)
+        EmployeeTicket.create!(employee: emp, ticket: ticket_new)
+
+        visit "/employees/#{emp.id}"
+
+        within "#ticket-list" do
+            expect(page).to have_content("bad chair")
+            expect(page).to have_content("printer broken")
+            expect(page).to_not have_content("fridge smell")
+        end
+
+        within "#ticket-form" do
+            fill_in('id', with: "#{ticket_mid.id}")
+            click_on('Add Ticket')
+        end
+
+        expect(current_path).to eq("/employees/#{emp.id}")
+
+        within "#ticket-list" do
+            expect(page).to have_content("bad chair")
+            expect(page).to have_content("printer broken")
+            expect(page).to have_content("fridge smell")
         end
     end
 end
