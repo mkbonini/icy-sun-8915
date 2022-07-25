@@ -97,7 +97,7 @@ RSpec.describe 'employee show page' do
             expect(page).to have_content("printer broken")
             expect(page).to_not have_content("fridge smell")
         end
-
+        
         within "#ticket-form" do
             fill_in('ticket_id', with: "#{ticket_mid.id}")
             click_on('Add Ticket')
